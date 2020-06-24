@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+    <servlet>
+        <servlet-name>LoginServlet</servlet-name>
+        <servlet-class>com.vip.wicp.i31973b278.ClothingWarehouse.LoginServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TestServlet</servlet-name>
+        <servlet-class>com.vip.wicp.i31973b278.ClothingWarehouse.TestServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LoginServlet</servlet-name>
+        <url-pattern>/LoginServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TestServlet</servlet-name>
+        <url-pattern>/TestServlet</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    <servlet>
+        <servlet-name>DBManager</servlet-name>
+        <!-- 下面这行是DBManager这个类的定位，“包名”替换为你在前面第4步中创建的包名，区分大小写！！！ -->
+        <servlet-class>com.vip.wicp.i31973b278.ClothingWarehouse.DBManager</servlet-class>
+        <init-param>
+            <param-name>DBUserName</param-name>
+            <!-- 这里是数据库用户名，一般情况下是root，无需改变 -->
+            <param-value>root</param-value>
+        </init-param>
+        <init-param>
+            <param-name>DBPassword</param-name>
+            <!-- 下面这两个标签中间写你的数据库密码，如果没设置就什么也别写，空格也不能有 -->
+            <param-value>874432636</param-value>
+        </init-param>
+        <init-param>
+            <param-name>ConnectionURL</param-name>
+            <param-value>jdbc:mysql://localhost:3306/ClothingWarehouse?serverTimezone=Asia/Shanghai</param-value>
+        </init-param>
+        <!-- 下面这行很重要，指示服务器在启动时立即加载这个Servlet -->
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+</web-app>
