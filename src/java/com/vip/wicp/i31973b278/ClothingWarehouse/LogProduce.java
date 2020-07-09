@@ -8,6 +8,7 @@ package com.vip.wicp.i31973b278.ClothingWarehouse;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.FileHandler;
+import java.util.logging.Formatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -31,7 +32,7 @@ public class LogProduce {
 	return sb.length() == 0 ? null : sb.toString();
     }
     
-    private static void setLogger() throws IOException{
+    private static void setLogger(Formatter formatter) throws IOException{
         //方法参数是Logger的名称，当名称相同时候，同一个名称的Logger只创建一个，实现各个类中共享
         Logger myLogger = Logger.getLogger(NAME);
         
@@ -40,18 +41,21 @@ public class LogProduce {
         File dir = new File(filePath);
         if(!dir.exists() || !dir.isDirectory())
         dir.mkdir();
-
-        //创建fileHandler 自定义类实例，用于在文件保存日志  
-        FileHandler fileHandler;
-        fileHandler = new FileHandler(filePath+"\\ClothingWarehouse.%u.%g.txt",1000,2,true);
-        fileHandler.setFormatter(new FileLogFormatter());
-        fileHandler.setLevel(Level.INFO);
-        myLogger.addHandler(fileHandler);
+        
+        if(formatter instanceof FileLogFormatter){
+            //创建fileHandler 自定义类实例，用于在文件保存日志  
+            FileHandler fileHandler;
+            fileHandler = new FileHandler(filePath+"\\ClothingWarehouse.%u.%g.txt",1000,2,true);
+            fileHandler.setFormatter(formatter);
+            fileHandler.setLevel(Level.INFO);
+            myLogger.addHandler(fileHandler);
+        }
+        
     }
     
-    public static void log(Exception e){
+    public static void log(Exception e,Formatter formatter){
        try{
-           if(!IFSET) setLogger();
+           if(!IFSET) setLogger(formatter);
            Logger myLogger = Logger.getLogger(NAME);
 	   myLogger.log(Level.INFO, "exception toString and track space : {}\r\n"+ e.toString());
 	   myLogger.log(Level.INFO, errorTrackSpace(e));

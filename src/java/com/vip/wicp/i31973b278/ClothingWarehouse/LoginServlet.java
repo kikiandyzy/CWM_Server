@@ -52,7 +52,7 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //processRequest(request, response);
-         // 设置响应内容类型  
+        // 设置响应内容类型  
         response.setContentType("text/html;charset=utf-8");
         request.setCharacterEncoding("utf-8");
         response.setCharacterEncoding("utf-8");
@@ -71,28 +71,26 @@ public class LoginServlet extends HttpServlet {
           
             
             //密码验证结果
-            Boolean verifyResult = verifyLogin(accountNumber, password);
-            //Boolean verifyResult = true;
+             User user = UserDAO.queryUser(accountNumber);//查询是否存在该用户
+           
             
 
-            if (verifyResult) {
+            if (user != null && user.getPassword().equals(password)) {
                 params.put("Result", "success");
+                params.put("identity", user.getIdentity());
             } else {
                 params.put("Result", "failed");
             }
             
-            initShelf();
+            //initShelf()
+            
             jsonObject.put("params", params);
             out.write(jsonObject.toString());
         }
         
     }
 
-    private Boolean verifyLogin(String userName, String password) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        User user = UserDAO.queryUser(userName);//查询是否存在该用户
-        return null != user && password.equals(user.getPassword());
-    }
+   
     
     //初始化数据库中的shelf表
     private void initShelf(){

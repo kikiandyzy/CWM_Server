@@ -57,29 +57,15 @@ public class TestServlet extends HttpServlet {
         
         try (PrintWriter out = response.getWriter()) {
             
-            Map<String, String> params = new HashMap<>();
+            Map<String, List<Shelf>> params = new HashMap<>();
             JSONObject jsonObject = new JSONObject();
             
            
+            List<Shelf> shelves = null;
             
-            //获得请求中传来的用户名和密码
-            String accountNumber = request.getParameter("AccountNumber").trim();
-            String password = request.getParameter("Password").trim();
-            
-          
-            
-            //密码验证结果
-            Boolean verifyResult = verifyLogin(accountNumber, password);
-            //Boolean verifyResult = true;
-            
-
-            if (verifyResult) {
-                params.put("Result", "success");
-            } else {
-                params.put("Result", "failed");
+            if(!shelves.isEmpty()){
+                params.put("shlves",shelves);
             }
-            
-            //params.put("a", initShelf());
              
             jsonObject.put("params", params);
             out.write(jsonObject.toString());
@@ -93,17 +79,7 @@ public class TestServlet extends HttpServlet {
         return null != user && password.equals(user.getPassword());
     }
     
-    private String initShelf(){
-        File file = new File(Global.getProjectconFigurationPath()+"\\clothings.xls");
-        String end = file.getAbsolutePath();
-        if(file.exists()){
-            end = "ok"+file.getAbsolutePath();
-            List<Shelf> shelves = PoiExpExcel.getShelves(file.getAbsolutePath());
-            ShelfDAO.initShelves(shelves);
-            //file.delete();
-        }
-       return end;
-    }
+   
 }
 //http://i31973b278.wicp.vip/ClothingWarehouse/TestServlet
 //http://i31973b278.wicp.vip/ClothingWarehouse/TestServlet?AccountNumber=yzy&Password=874432636

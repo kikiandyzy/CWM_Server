@@ -17,13 +17,16 @@ public class User {
     //用户密码
     private String password;
     
+    private String identity;
+    
     public User(){
         
     }
     
-    public User(String userName,String password){
+    public User(String userName,String password,String identity){
         this.userName = userName;
         this.password = password;
+        this.identity = identity;
     }
 
     public String getUserName() {
@@ -41,5 +44,12 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-
+    
+    public String getIdentity(){
+        return identity;
+    }
+    
+    public void setIdentity(String identity){
+        this.identity = identity;
+    }
 }

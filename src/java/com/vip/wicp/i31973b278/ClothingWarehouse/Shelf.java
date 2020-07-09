@@ -44,9 +44,7 @@ public class Shelf {
 	this.storageLocation = storageLocation;
     }
     
-    public String show(){
-       return getShelfID()+"-"+getStorageLocation()+"-"+getClothingID()+"-"+getQuantity();
-    }
+    
 
     /**
      * @return the shelfID
@@ -74,6 +72,11 @@ public class Shelf {
      */
     public int getQuantity() {
         return quantity;
+    }
+    
+    @Override
+    public String toString(){
+        return getShelfID()+"-"+getStorageLocation()+"-"+getClothingID()+"-"+getQuantity();
     }
     
     

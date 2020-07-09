@@ -55,6 +55,19 @@ public class DBManager extends HttpServlet{
         return CONNECTION;
     }
     
+    //建立连接并获取连接对象
+    public static Connection getConnection(String userName, String password){
+        try{
+            Class.forName("com.mysql.jdbc.Driver").newInstance();//反射
+            CONNECTION = DriverManager.getConnection(URL,userName,password);
+        }catch (ClassNotFoundException | InstantiationException
+                | IllegalAccessException | SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return CONNECTION;
+    }
+    
+    
     //关闭链接资源和结果集
     public static void closeAll(Connection connection, Statement statement,ResultSet resultSet){
         try{
